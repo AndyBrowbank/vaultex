@@ -15,5 +15,5 @@ The git repository can be found [here](https://github.com/AndyBrowbank/vaultex)
 
 To run the project, you need to install Node and run `git clone your-forked-repo-link-here`
 
-Once open, open a terminal and run `npm install`. The app runs from Jest so please run npm t to run the test suite. 
+Once open, open a terminal and run `npm install`. The app runs from Jest so please run `npm t` to run the test suite. 
 
