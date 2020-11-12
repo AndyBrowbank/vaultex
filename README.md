@@ -1,4 +1,4 @@
-# Vaultex ATM Validaor App
+# Vaultex ATM Validator App
 
 The Validator App checks an ATM cassette order for validity. If invalid, it will throw the relevant error, otherise the user will be notified that the order is valid
 and ready to be packed.
