@@ -1,6 +1,6 @@
 # Vaultex ATM Validator App
 
-The Validator App checks an ATM cassette order for validity. If invalid, it will throw the relevant error, otherise the user will be notified that the order is valid
+The **Validator App** checks an ATM cassette order for validity. If invalid, it will throw the relevant error, otherise the user will be notified that the order is valid
 and ready to be packed.
 
 The orders are hard coded from within Jest, in the form of an array. The first sub array contains the string "cassette" and the number of cassettes required. 
