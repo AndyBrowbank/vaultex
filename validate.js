@@ -2,7 +2,6 @@ module.exports = { validate };
 
 function validate(order) {
   let orderLength = order.length - 1;
-
   let count = 0;
   let cassette = [];
   let retVal = [];
@@ -19,60 +18,61 @@ function validate(order) {
     ];
   }
 
-  const error2 = [];
+  // throw error for unexpected string
+  const stringError = [];
   order.forEach((item) => {
     if (typeof item[1] === "string") {
-      error2.push("error", "invalid entry, integer required");
+      stringError.push("error", "invalid entry, integer required");
     }
   });
-  if (error2.length) {
-    return error2;
+  if (stringError.length) {
+    return stringError;
   }
 
-  order.forEach((item, index) => {
-    if (item.length) {
-      count++;
-      //   console.log("PASS - at least one order", " at array position ", index);
-      cassette["cassette" + [index]] = true;
-    }
-    // console.log(count - 1, "cassettes ordered", cassette);
-  });
+  // not used - intention was to set a true/false flag for each cassette that was ordered
+  // order.forEach((item, index) => {
+  //   if (item.length) {
+  //     count++;
+  //     cassette["cassette" + [index]] = true;
+  //   }
+  // });
 
+  // 4 functions called from switch statement to
+  // throw error is cash value too low/high. Function take a (position)
+  // to specify the exact cassette to check
   function check5(position) {
     if (order[position][1] < 10000) {
       return ["error", "cash value too low"];
     }
     if (order[position][1] > 10000) {
-      //   console.log("error - cash amount too high");
+      return ["error", "cash value too high"];
     }
   }
   function check10(position) {
     if (order[position][1] < 20000) {
-      let retVal = [];
-      retVal.push("error", "cash value too low");
+      return ["error", "cash value too low"];
     }
     if (order[position][1] > 20000) {
-      console.log("error - cash amount too high");
+      return ["error", "cash value too high"];
     }
   }
   function check20(position) {
     if (order[position][1] < 40000) {
-      console.log("error - cash amount too low");
+      return ["error", "cash value too low"];
     }
     if (order[position][1] > 40000) {
-      console.log("error - cash amount too high");
+      return ["error", "cash value too high"];
     }
   }
   function check50(position) {
     if (order[position][1] < 100000) {
-      console.log("error - cash amount too low");
+      return ["error", "cash value too low"];
     }
     if (order[position][1] > 100000) {
-      console.log("error - cash amount too high");
+      return ["error", "cash value too high"];
     }
   }
 
-  // check for correct cash value dependent on £5, £10, £20 or £50
   const order_1_0 = order[1][0];
   const order_2_0 = order[2][0];
   const order_3_0 = order[3][0];
@@ -80,6 +80,7 @@ function validate(order) {
 
   switch ((order[1][0], order_1_0)) {
     case order_1_0:
+      // check for incorrect note type
       if (
         order_1_0 !== "5" &&
         order_1_0 !== "10" &&
@@ -93,9 +94,7 @@ function validate(order) {
       break;
     case "10":
       check10(1);
-
       break;
-
     case "20":
       check20(1);
       break;
@@ -120,7 +119,6 @@ function validate(order) {
       break;
     case "10":
       check10(2);
-
       break;
     case "20":
       check20(2);
@@ -176,15 +174,18 @@ function validate(order) {
       break;
   }
 
+  // tests if number of cassettes is same as number of cassettes specified
+  // at index [0][1] of order
   if (orderLength === order[0][1]) {
     return ["valid", "Order valid, sent for packing"];
   }
 
+  // intended to throw error if no order present
   if (count === 1) {
     return error1;
   } else {
-    console.log("at least one order is present ");
+    // console.log("at least one order is present ");
   }
+  // retVal not currently working
   return retVal;
 }
-// validate();
